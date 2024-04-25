@@ -4,7 +4,7 @@
 This semester, I was a TA for CSDS 132, so I came up with a few simple aliases to help with grading projects.
 
 #### Bulk compile/delete
-```Bash
+```zsh
 alias compile="ls | grep '.*.java' > sources.txt; javac @sources.txt"
 alias clean="rm *.class; rm *.java"
 ```
@@ -16,7 +16,7 @@ The first two 132 projects don't have a lot of files, so I was fine with compili
 ![Compile/Clean demo](/images/grading.png)
 
 #### Switch Java version
-```Bash
+```zsh
 alias j21="export JAVA_HOME=`/usr/libexec/java_home -v 21`; java -version"
 alias j17="export JAVA_HOME=`/usr/libexec/java_home -v 17`; java -version"
 alias j8="export JAVA_HOME=`/usr/libexec/java_home -v 1.8`; java -version"
@@ -38,6 +38,7 @@ TLDR:
 #### Version 1
 Initially, I was not aware of any way to make php process a dynamic webpage, so I couldn't actually get the comments since a side panel needed to be opened to generate the comments.  Instead, I had the script just grab the hints grid on the static webpage.
 
+##### scraper.php
 ```php
 error_reporting(0);
 
