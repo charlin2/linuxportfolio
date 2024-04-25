@@ -28,6 +28,7 @@ In addition to TA'ing, I was also taking CSDS 293, which required a different ve
 
 ![Switch Java version](/images/switch.png)
 
+---
 
 ### Scrape New York Times Spelling Bee Comments
 I am an avid fan of the NYT Spelling Bee game, which involves making as many words as possible from a set of 7 words.  There are other even more devoted Spelling Bee fanatics, and they like to write comments as clues to the words in the community tab.
@@ -63,6 +64,8 @@ echo "</div>";
 ```
 
 ![Hints grid](images/grid.png)
+
+<br/>
 
 #### Version 2
 I used ChatGPT to help me come up with a solution to retrieve the contents of the dynamic webpage.  It suggested I use a headless browser, such as Puppeteer for JavaScript.  I had ChatGPT write the script for spinning up the headless browser, and I tweaked the php script to call the .js file.
