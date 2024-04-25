@@ -32,7 +32,8 @@ In addition to TA'ing, I was also taking CSDS 293, which required a different ve
 ### Scrape New York Times Spelling Bee Comments
 I am an avid fan of the NYT Spelling Bee game, which involves making as many words as possible from a set of 7 words.  There are other even more devoted Spelling Bee fanatics, and they like to write comments as clues to the words in the community tab.
 
-This script scrapes the comments to retrieve the clues.
+TLDR:
+- This script scrapes Spelling Bee comments to retrieve clues
 
 #### Version 1
 Initially, I was not aware of any way to make php process a dynamic webpage, so I couldn't actually get the comments since a side panel needed to be opened to generate the comments.  Instead, I had the script just grab the hints grid on the static webpage.
