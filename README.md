@@ -71,7 +71,7 @@ echo "</div>";
 I used ChatGPT to help me come up with a solution to retrieve the contents of the dynamic webpage.  It suggested I use a headless browser, such as Puppeteer for JavaScript.  I had ChatGPT write the script for spinning up the headless browser, and I tweaked the php script to call the .js file.
 
 ##### fetch_comments.js
-```js
+```javascript
 const puppeteer = require("puppeteer");
 
 (async () => {
