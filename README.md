@@ -116,3 +116,165 @@ foreach (explode("\n", $output) as $comment) {
 echo "</ul>";
 ```
 ![Spelling Bee Hints](images/hints.png)
+
+---
+
+### LeetCode Problem Tracker and Spaced Repetition Reminder
+I wanted an easy way to keep track of completed LeetCode problems, as well as a way of reminding myself when to revisit questions to reinforce my learning.  
+
+TLDR:
+
+- Site to input completed problems and highlight problems a week later
+
+This php site allows the user to input the title, link, and difficulty of a problem.  Once a week has passed, the site will highlight questions that need to be revisited.  I had ChatGPT help with highlighting problems a week later and all of the styling.
+
+'''php
+<?php
+error_reporting(0);
+
+function track_problem($problem, $link, $difficulty) {
+    $timestamp = date("Y-m-d H:i:s");
+    $line = "$timestamp, $problem, $link, $difficulty\n";
+    file_put_contents('leetcode_tracker.txt', $line, FILE_APPEND);
+}
+
+function remove_problem($index) {
+    $file = 'leetcode_tracker.txt';
+    $lines = file($file);
+    if (isset($lines[$index])) {
+        unset($lines[$index]);
+        file_put_contents($file, implode('', $lines));
+    }
+}
+
+function display_problems() {
+    $file = 'leetcode_tracker.txt';
+    $lines = file($file);
+    $current_date = strtotime(date("Y-m-d"));
+
+    echo "<h2 style='text-align: center; margin-top: 20px;'>LeetCode Problems Tracker</h2>";
+    echo "<div style='margin: 0 auto; width: 70%;'>";
+    echo "<table border='1' cellpadding='10' style='border-collapse: collapse; width: 100%;'>";
+    echo "<tr><th style='background-color: #f2f2f2; text-align: center; padding: 10px;'>Date</th><th style='background-color: #f2f2f2; text-align: center; padding: 10px;'>Problem</th><th style='background-color: #f2f2f2; text-align: center; padding: 10px;'>Difficulty</th><th style='background-color: #f2f2f2; text-align: center; padding: 10px;'>Actions</th></tr>";
+
+    foreach ($lines as $index => $line) {
+        $data = explode(', ', $line);
+        $date = strtotime($data[0]);
+        $problem = $data[1];
+        $link = $data[2];
+        $difficulty = $data[3];
+
+        // Check if a week has passed since solving the problem
+        $highlightClass = ($current_date - $date) >= 604800 ? 'highlight' : '';
+
+        echo "<tr>";
+        echo "<td style='text-align: center; padding: 10px;'>$data[0]</td>";
+        echo "<td style='text-align: center; padding: 10px;'><a href='$link' target='_blank'><span class='$highlightClass'>$problem</span></a></td>";
+        echo "<td style='text-align: center; padding: 10px;'>$difficulty</td>";
+        echo "<td style='text-align: center; padding: 10px;'><form method='post'><input type='hidden' name='index' value='$index'><input type='submit' name='remove' value='Remove'></form></td>";
+        echo "</tr>";
+    }
+
+    echo "</table>";
+    echo "</div>";
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['remove'])) {
+    $index = $_POST['index'];
+    remove_problem($index);
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['problem'])) {
+    $problem = $_POST['problem'];
+    $link = $_POST['link'];
+    $difficulty = $_POST['difficulty'];
+
+    track_problem($problem, $link, $difficulty);
+}
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LeetCode Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        h2, h3 {
+            text-align: center;
+        }
+        form {
+            margin: 20px auto;
+            text-align: center;
+            width: 70%;
+        }
+        input[type=text], select {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            display: block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=submit] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type=submit]:hover {
+            background-color: #45a049;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .highlight {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+    <?php display_problems(); ?>
+    <h3 style="text-align: center;">Add a New Problem</h3>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" style="text-align: center;">
+        <label for="problem">Problem:</label>
+        <input type="text" id="problem" name="problem"><br/>
+        <label for="link">Link:</label>
+        <input type="text" id="link" name="link"><br/>
+        <label for="difficulty">Difficulty:</label>
+        <select id="difficulty" name="difficulty">
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+        </select><br/>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+'''
+
+![LeetCode Tracker](images/leetcodetracker.png)
+
