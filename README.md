@@ -126,7 +126,7 @@ TLDR:
 
 - Site to input completed problems and highlight problems a week later
 
-This php site allows the user to input the title, link, and difficulty of a problem.  Once a week has passed, the site will highlight questions that need to be revisited.  I had ChatGPT help with highlighting problems a week later and all of the styling.
+This php site allows the user to input the title, link, and difficulty of a problem.  Once a week has passed, the site will highlight questions that need to be revisited.  The initial version was very barebones and ugly, so I had ChatGPT help with all of the styling and creating the HTML table.  I also had wanted to see if ChatGPT could seamlessly add in the remove button into my code, so that was also added in a later revision.
 
 ##### LeetCode Tracker
 ~~~php
