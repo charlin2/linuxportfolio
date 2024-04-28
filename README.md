@@ -128,7 +128,8 @@ TLDR:
 
 This php site allows the user to input the title, link, and difficulty of a problem.  Once a week has passed, the site will highlight questions that need to be revisited.  I had ChatGPT help with highlighting problems a week later and all of the styling.
 
-'''php
+##### LeetCode Tracker
+~~~php
 <?php
 error_reporting(0);
 
@@ -273,8 +274,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['problem'])) {
     </form>
 </body>
 </html>
+~~~
 
-'''
 
 ![LeetCode Tracker](images/leetcodetracker.png)
 
